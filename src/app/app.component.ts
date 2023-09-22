@@ -41,6 +41,25 @@ export class AppComponent implements OnInit{
       address: [''],
       phone: [''],
     } );
+
+    this.getPersons();
+
+
   }
+
+  savePerson() {
+    this.personsService.savePerson(this.personForm.value).subscribe((data: any) => {
+      this.personForm.reset();
+      this.getPersons();
+    });
+  }
+
+  getPersons() {
+    this.personsService.getPersons().subscribe((data: any) => {
+      this.persons = data;
+    });
+  }
+
+
 
 }

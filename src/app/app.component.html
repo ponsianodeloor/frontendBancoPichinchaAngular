@@ -1,7 +1,7 @@
 <div class="row my-5">
   <div class="col-4">
     <div class="card">
-      <img src="assets/images/angular_spring_boot.png" [height]="250">
+      <img src="assets/images/angular_spring_boot.png" height="250">
       <div class="card-body">
         <h5 class="card-title">DevSecOps</h5>
         <p class="card-text">
@@ -26,6 +26,38 @@
         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
           <div class="accordion-body">
               Formulario para crear personas
+
+            <form [formGroup]="personForm" (ngSubmit)="savePerson()">
+              <div class="mb-3">
+                <label for="identification" class="form-label">Identificación</label>
+                <input type="text" class="form-control" id="identification" formControlName="identification">
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="name" formControlName="name">
+              </div>
+              <div class="mb-3">
+                <label for="age" class="form-label">Edad</label>
+                <input type="number" class="form-control" id="age" formControlName="age">
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="address" formControlName="address">
+              </div>
+              <div class="mb-3">
+                <label for="phone" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="phone" formControlName="phone">
+              </div>
+              <button type="submit" class="btn btn-primary">Crear</button>
+            </form>
+
+            <ul class="list-group">
+              <li *ngFor="let person of persons" class="list-group-item">
+                {{person.identification}} - {{person.name}}, <strong>Edad</strong> {{person.age}},
+                Dirección {{person.address}}, Teléfono {{person.phone}}
+              </li>
+            </ul>
+
           </div>
         </div>
       </div>

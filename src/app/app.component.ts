@@ -16,6 +16,7 @@ import { TransactionsService } from "./services/transaction/transactions.service
 export class AppComponent implements OnInit{
   title = 'frontendBancoPichinchaAngular';
   personForm: FormGroup;
+  clientForm: FormGroup;
   persons: any;
   clients: any;
   accountTypes: any;
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit{
     public transactionsService: TransactionsService,
   ) {
     this.personForm = this.fb.group({ } );
+    this.clientForm = this.fb.group({ } );
   }
 
   ngOnInit() {
@@ -42,9 +44,15 @@ export class AppComponent implements OnInit{
       phone: [''],
     } );
 
-    this.getPersons();
+    this.getPersons()
+    this.getClients()
 
+  }
 
+  getPersons() {
+    this.personsService.getPersons().subscribe((data: any) => {
+      this.persons = data;
+    });
   }
 
   savePerson() {
@@ -54,9 +62,16 @@ export class AppComponent implements OnInit{
     });
   }
 
-  getPersons() {
-    this.personsService.getPersons().subscribe((data: any) => {
-      this.persons = data;
+  getClients() {
+    this.clientsService.getClients().subscribe((data: any) => {
+      this.clients = data;
+    });
+  }
+
+  saveClient() {
+    this.clientsService.saveClient(this.clientForm.value).subscribe((data: any) => {
+      this.clientForm.reset();
+      this.getClients();
     });
   }
 

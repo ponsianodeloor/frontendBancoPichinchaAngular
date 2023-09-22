@@ -69,7 +69,24 @@
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-              Formulario para crear clientes
+            Formulario para crear clientes
+            <form [formGroup]="clientForm" (ngSubmit)="saveClient()">
+              <div class="mb-3">
+                <label for="person" class="form-label">Seleccione una persona</label>
+                <select class="form-select" aria-label="Default select example" formControlName="person" name="person">
+                  <option selected>Seleccione una persona</option>
+                  <option *ngFor="let person of persons" [value]="person.id">{{person.name}}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <div class="mb-3">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="password" formControlName="password">
+                </div>
+
+              </div>
+              <button type="submit" class="btn btn-primary">Crear</button>
+            </form>
           </div>
         </div>
       </div>
@@ -77,12 +94,12 @@
         <h2 class="accordion-header" id="headingThree">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Creacion de Cuentas
+            Creacion de tipo de Cuentas
           </button>
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            Creacion de cuentas
+            Formulario para crear tipo de cuentas
           </div>
         </div>
       </div>
@@ -90,12 +107,25 @@
         <h2 class="accordion-header" id="headingFour">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            Creacion de transacciones
+            Creacion de cuentas
           </button>
         </h2>
         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
           <div class="accordion-body">
+            Formulario para la creacion de cuentas
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFive">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFour">
             Creacion de transacciones
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            Formulario para la crecion de transacciones
           </div>
         </div>
       </div>

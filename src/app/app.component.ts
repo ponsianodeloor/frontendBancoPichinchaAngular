@@ -17,6 +17,7 @@ export class AppComponent implements OnInit{
   title = 'frontendBancoPichinchaAngular';
   personForm: FormGroup;
   clientForm: FormGroup;
+  accountTypesForm: FormGroup;
   persons: any;
   clients: any;
   accountTypes: any;
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit{
   ) {
     this.personForm = this.fb.group({ } );
     this.clientForm = this.fb.group({ } );
+    this.accountTypesForm = this.fb.group({ } );
   }
 
   ngOnInit() {
@@ -50,8 +52,13 @@ export class AppComponent implements OnInit{
       active: [''],
     } );
 
+    this.accountTypesForm = this.fb.group({
+      name: [''],
+    });
+
     this.getPersons()
     this.getClients()
+    this.getAccountTypes()
 
   }
 
@@ -83,6 +90,19 @@ export class AppComponent implements OnInit{
       this.clientForm.reset();
       this.getClients();
       this.clients.push(data);
+    });
+  }
+
+  getAccountTypes() {
+    this.accountTypesService.getAccountTypes().subscribe((data: any) => {
+      this.accountTypes = data;
+    });
+  }
+
+  saveAccountType() {
+    this.accountTypesService.saveAccountType(this.accountTypesForm.value).subscribe((data: any) => {
+      this.accountTypesForm.reset();
+      this.getAccountTypes();
     });
   }
 

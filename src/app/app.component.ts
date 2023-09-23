@@ -44,6 +44,12 @@ export class AppComponent implements OnInit{
       phone: [''],
     } );
 
+    this.clientForm = this.fb.group({
+      person: [''],
+      password: [''],
+      active: [''],
+    } );
+
     this.getPersons()
     this.getClients()
 
@@ -69,9 +75,14 @@ export class AppComponent implements OnInit{
   }
 
   saveClient() {
+    //modificar el objeto person para que solo tenga el id en json hijo
+    this.clientForm.value.person = {id: this.clientForm.value.person};
+
     this.clientsService.saveClient(this.clientForm.value).subscribe((data: any) => {
+      console.log(data);
       this.clientForm.reset();
       this.getClients();
+      this.clients.push(data);
     });
   }
 

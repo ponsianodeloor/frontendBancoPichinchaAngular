@@ -73,8 +73,8 @@
             <form [formGroup]="clientForm" (ngSubmit)="saveClient()">
               <div class="mb-3">
                 <label for="person" class="form-label">Seleccione una persona</label>
-                <select class="form-select" aria-label="Default select example" formControlName="person" name="person">
-                  <option selected>Seleccione una persona</option>
+                <select class="form-select" aria-label="Default select example" id="person" formControlName="person" name="person">
+                  <option>Seleccione una persona</option>
                   <option *ngFor="let person of persons" [value]="person.id">{{person.name}}</option>
                 </select>
               </div>
@@ -82,6 +82,7 @@
                 <div class="mb-3">
                   <label for="password" class="form-label">Contraseña</label>
                   <input type="password" class="form-control" id="password" formControlName="password">
+                  <input type="hidden" class="form-control" id="active" formControlName="active" value="true">
                 </div>
 
               </div>

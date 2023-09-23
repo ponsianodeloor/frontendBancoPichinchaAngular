@@ -18,6 +18,7 @@ export class AppComponent implements OnInit{
   personForm: FormGroup;
   clientForm: FormGroup;
   accountTypesForm: FormGroup;
+  accountForm: FormGroup;
   persons: any;
   clients: any;
   accountTypes: any;
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit{
     this.personForm = this.fb.group({ } );
     this.clientForm = this.fb.group({ } );
     this.accountTypesForm = this.fb.group({ } );
+    this.accountForm = this.fb.group({ } );
   }
 
   ngOnInit() {
@@ -49,16 +51,23 @@ export class AppComponent implements OnInit{
     this.clientForm = this.fb.group({
       person: [''],
       password: [''],
-      active: [''],
     } );
 
     this.accountTypesForm = this.fb.group({
       name: [''],
     });
 
+    this.accountForm = this.fb.group({
+      client: [''],
+      accountType: [''],
+      balance: [''],
+      numberAccount: [''],
+    } );
+
     this.getPersons()
     this.getClients()
     this.getAccountTypes()
+    this.getAccounts()
 
   }
 
@@ -106,6 +115,21 @@ export class AppComponent implements OnInit{
     });
   }
 
+  getAccounts() {
+    this.accountsService.getAccounts().subscribe((data: any) => {
+      this.accounts = data;
+    });
+  }
 
+  saveAccount() {
+    //modificar el objeto client para que solo tenga el id en json hijo
+    this.accountForm.value.client = {id: this.accountForm.value.client};
+    this.accountForm.value.accountType = {id: this.accountForm.value.accountType};
+
+    this.accountsService.saveAccount(this.accountForm.value).subscribe((data: any) => {
+      this.accountForm.reset();
+      this.getAccounts();
+    });
+  }
 
 }

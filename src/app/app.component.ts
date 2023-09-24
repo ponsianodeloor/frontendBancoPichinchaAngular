@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
   clientForm: FormGroup;
   accountTypesForm: FormGroup;
   accountForm: FormGroup;
+  transactionForm: FormGroup;
   persons: any;
   clients: any;
   accountTypes: any;
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit{
     this.clientForm = this.fb.group({ } );
     this.accountTypesForm = this.fb.group({ } );
     this.accountForm = this.fb.group({ } );
+    this.transactionForm = this.fb.group({ } );
   }
 
   ngOnInit() {
@@ -62,7 +64,13 @@ export class AppComponent implements OnInit{
       accountType: [''],
       balance: [''],
       numberAccount: [''],
-    } );
+    });
+
+    this.transactionForm = this.fb.group({
+      account: [''],
+      amount: [''],
+      transactionType: [''],
+    });
 
     this.getPersons()
     this.getClients()
@@ -129,6 +137,23 @@ export class AppComponent implements OnInit{
     this.accountsService.saveAccount(this.accountForm.value).subscribe((data: any) => {
       this.accountForm.reset();
       this.getAccounts();
+    });
+  }
+
+  getTransactions() {
+    this.transactionsService.getTransactions().subscribe((data: any) => {
+      this.transactions = data;
+    });
+  }
+
+  saveTransaction() {
+    //modificar el objeto client para que solo tenga el id en json hijo
+    this.transactionForm.value.account = {id: this.transactionForm.value.account};
+
+    this.transactionsService.saveTransaction(this.transactionForm.value).subscribe((data: any) => {
+      this.transactionForm.reset();
+      this.getAccounts();
+      this.getTransactions();
     });
   }
 

@@ -167,6 +167,13 @@
               <button type="submit" class="btn btn-primary">Crear</button>
             </form>
 
+            <p>Listado de cuentas</p>
+            <ul class="list-group mt-2">
+              <li *ngFor="let account of accounts" class="list-group-item">
+                {{account.accountType.name}} - {{account.numberAccount}} - {{account.balance}} - {{account.client.person.name}}
+              </li>
+            </ul>
+
 
           </div>
         </div>
@@ -181,6 +188,35 @@
         <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             Formulario para la crecion de transacciones
+
+            <form [formGroup]="transactionForm" (ngSubmit)="saveTransaction()">
+              <div class="mb-3">
+                <label for="client" class="form-label">Seleccione una cuenta</label>
+                <select class="form-select" aria-label="Default select example" id="account" formControlName="account" name="account">
+                  <option>Seleccione</option>
+                  <option *ngFor="let account of accounts" value="{{account.id}}">
+                    {{account.accountType.name}} - {{account.numberAccount}} - {{account.balance}} - {{account.client.person.name}}
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="accountType" class="form-label">Seleccione una tipo de transaccion</label>
+                <select class="form-select" aria-label="Default select example" id="transactionType" formControlName="transactionType" name="transactionType">
+                  <option>Seleccione un tipo de transaccion</option>
+                  <option value="1">Deposito</option>
+                  <option value="2">Retiro</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <div class="mb-3">
+                  <label for="balance" class="form-label">Valor $</label>
+                  <input type="text" class="form-control" id="amount" formControlName="amount" name="amount">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Crear transaccion</button>
+            </form>
+
           </div>
         </div>
       </div>

@@ -76,6 +76,7 @@ export class AppComponent implements OnInit{
     this.getClients()
     this.getAccountTypes()
     this.getAccounts()
+    this.getTransactions()
 
   }
 

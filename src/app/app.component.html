@@ -215,6 +215,30 @@
               </div>
 
               <button type="submit" class="btn btn-primary">Crear transaccion</button>
+
+              <p>Listado de Transacciones</p>
+
+              <table class="table">
+                <tr>
+                  <th>Nombre</th>
+                  <th>Tipo de cuenta</th>
+                  <th>Numero</th>
+                  <th>Saldo Inicial</th>
+                  <th>Valor</th>
+                  <th>Saldo Final</th>
+                  <th>Movimiento</th>
+                </tr>
+                <tr *ngFor="let transaction of transactions">
+                  <td>{{transaction.account.client.person.name}}</td>
+                  <td>{{transaction.account.accountType.name}}</td>
+                  <td>{{transaction.account.numberAccount}}</td>
+                  <td>{{transaction.balance}}</td>
+                  <td>{{transaction.amount}} <span *ngIf="transaction.transactionType == 2">( - )</span></td>
+                  <td>{{transaction.newBalance}}</td>
+                  <td>{{transaction.description}}</td>
+                </tr>
+              </table>
+
             </form>
 
           </div>
